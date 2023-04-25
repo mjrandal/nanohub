@@ -13,30 +13,77 @@
         <CellType TypeId="0" TypeName="Medium"/>
         <CellType TypeId="1" TypeName="SecretingCells"/>
         <CellType TypeId="2" TypeName="NonSecretingCells"/>
+        <CellType TypeId="3" TypeName="Melanophores"/>
+        <CellType TypeId="4" TypeName="Xanthophores"/>
+        <CellType TypeId="5" Freeze="" TypeName="wall"/>
+        <CellType TypeId="6" TypeName="Melanophores2"/>
+        <CellType TypeId="7" TypeName="Xanthophores2"/>
 
     </Plugin>
 
     <!-- Constraint on cell volume. Each cell type has different constraint. -->
     <!-- For more flexible specification of the constraint (done in Python) please use VolumeLocalFlex plugin -->
-    <Plugin Name="Volume">
-        <VolumeEnergyParameters CellType="SecretingCells" LambdaVolume="0.0" TargetVolume="25"/>
-        <VolumeEnergyParameters CellType="NonSecretingCells" LambdaVolume="0.0" TargetVolume="25"/>
-    </Plugin>
+<Plugin Name="Volume">
+   <VolumeEnergyParameters CellType="SecretingCells" LambdaVolume="0.0" TargetVolume="25.0"/>
+   <VolumeEnergyParameters CellType="NonSecretingCells" LambdaVolume="0.0" TargetVolume="25.0"/>
+   <VolumeEnergyParameters CellType="Melanophores" LambdaVolume="15.0" TargetVolume="10.0"/>
+   <VolumeEnergyParameters CellType="Xanthophores" LambdaVolume="15.0" TargetVolume="10.0"/>
+   <VolumeEnergyParameters CellType="wall" LambdaVolume="2.0" TargetVolume="50.0"/>
+   <VolumeEnergyParameters CellType="Melanophores2" LambdaVolume="15.0" TargetVolume="10.0"/>
+   <VolumeEnergyParameters CellType="Xanthophores2" LambdaVolume="15.0" TargetVolume="10.0"/>
+</Plugin>
 
+
+
+<Plugin Name="PixelTracker">
+   
+   <!-- Module tracking pixels of each cell -->
+</Plugin>
 
     <!-- Module tracking center of mass of each cell -->
     <Plugin Name="CenterOfMass"/>
 
     <!-- Specification of adhesion energies -->
-    <Plugin Name="Contact">
-        <Energy Type1="Medium" Type2="Medium">10</Energy>
-        <Energy Type1="Medium" Type2="SecretingCells">10</Energy>
-        <Energy Type1="Medium" Type2="NonSecretingCells">10</Energy>
-        <Energy Type1="SecretingCells" Type2="SecretingCells">10</Energy>
-        <Energy Type1="SecretingCells" Type2="NonSecretingCells">10</Energy>
-        <Energy Type1="NonSecretingCells" Type2="NonSecretingCells">10</Energy>
-        <NeighborOrder>2</NeighborOrder>
-    </Plugin>
+<Plugin Name="Contact">
+   <!-- Specification of adhesion energies -->
+   <Energy Type1="Medium" Type2="Medium">10.0</Energy>
+   <Energy Type1="Medium" Type2="SecretingCells">10.0</Energy>
+   <Energy Type1="Medium" Type2="NonSecretingCells">10.0</Energy>
+   <Energy Type1="Medium" Type2="Melanophores">10.0</Energy>
+   <Energy Type1="Medium" Type2="Xanthophores">10.0</Energy>
+   <Energy Type1="Medium" Type2="wall">10.0</Energy>
+   <Energy Type1="Medium" Type2="Melanophores2">10.0</Energy>
+   <Energy Type1="Medium" Type2="Xanthophores2">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="SecretingCells">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="NonSecretingCells">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="Melanophores">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="Xanthophores">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="wall">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="Melanophores2">10.0</Energy>
+   <Energy Type1="SecretingCells" Type2="Xanthophores2">10.0</Energy>
+   <Energy Type1="NonSecretingCells" Type2="NonSecretingCells">10.0</Energy>
+   <Energy Type1="NonSecretingCells" Type2="Melanophores">10.0</Energy>
+   <Energy Type1="NonSecretingCells" Type2="Xanthophores">10.0</Energy>
+   <Energy Type1="NonSecretingCells" Type2="wall">10.0</Energy>
+   <Energy Type1="NonSecretingCells" Type2="Melanophores2">10.0</Energy>
+   <Energy Type1="NonSecretingCells" Type2="Xanthophores2">10.0</Energy>
+   <Energy Type1="Melanophores" Type2="Melanophores">25.0</Energy>
+   <Energy Type1="Melanophores" Type2="Xanthophores">25.0</Energy>
+   <Energy Type1="Melanophores" Type2="wall">15.0</Energy>
+   <Energy Type1="Melanophores" Type2="Melanophores2">25.0</Energy>
+   <Energy Type1="Melanophores" Type2="Xanthophores2">25.0</Energy>
+   <Energy Type1="Xanthophores" Type2="Xanthophores">25.0</Energy>
+   <Energy Type1="Xanthophores" Type2="wall">15.0</Energy>
+   <Energy Type1="Xanthophores" Type2="Melanophores2">25.0</Energy>
+   <Energy Type1="Xanthophores" Type2="Xanthophores2">25.0</Energy>
+   <Energy Type1="wall" Type2="wall">10.0</Energy>
+   <Energy Type1="wall" Type2="Melanophores2">15.0</Energy>
+   <Energy Type1="wall" Type2="Xanthophores2">25.0</Energy>
+   <Energy Type1="Melanophores2" Type2="Melanophores2">25.0</Energy>
+   <Energy Type1="Melanophores2" Type2="Xanthophores2">25.0</Energy>
+   <Energy Type1="Xanthophores2" Type2="Xanthophores2">25.0</Energy>
+   <NeighborOrder>2</NeighborOrder>
+</Plugin>
 
 
     <!-- Specification of PDE solvers -->
@@ -76,7 +123,19 @@
         </DiffusionField>
     </Steppable>
 
+<Plugin Name="Chemotaxis">
+   
+   <!-- You may repeat ChemicalField element for each chemical field declared in the PDE solvers -->
+   <!-- Specification of chemotaxis properties of select cell types. -->
+   <ChemicalField Name="u">
+      <ChemotaxisByType  Lambda="10.0" Type="Melanophores2"/>
 
+   </ChemicalField>
+      <ChemicalField Name="v">
+      <ChemotaxisByType  Lambda="10.0" Type="Xanthophores2"/>
+
+   </ChemicalField>
+</Plugin>
     <!-- Initial layout of cells in the form of rectangular slab -->
     <Steppable Type="UniformInitializer">
         <!-- <Region> -->
@@ -100,48 +159,48 @@
             <!-- <Width>5</Width> -->
             <!-- <Types>SecretingCells</Types> -->
         <!-- </Region> -->
-        <Region>
-            <BoxMin x="0" y="0" z="0"/>
-            <BoxMax x="128" y="128" z="1"/>
-            <Gap>10</Gap>
-            <Width>1</Width>
-            <Types>SecretingCells,NonSecretingCells</Types>
-        </Region>
-        <Region>
-            <BoxMin x="0" y="60" z="0"/>
-            <BoxMax x="40" y="65" z="1"/>
-            <Gap>10</Gap>
-            <Width>5</Width>
-            <Types>SecretingCells</Types>
-        </Region>
-        <Region>
-            <BoxMin x="70" y="60" z="0"/>
-            <BoxMax x="128" y="65" z="1"/>
-            <Gap>10</Gap>
-            <Width>5</Width>
-            <Types>SecretingCells</Types>
-        </Region>
-                <Region>
-            <BoxMin x="0" y="40" z="0"/>
-            <BoxMax x="40" y="45" z="1"/>
-            <Gap>10</Gap>
-            <Width>5</Width>
-            <Types>SecretingCells</Types>
-        </Region>
-        <Region>
-            <BoxMin x="70" y="40" z="0"/>
-            <BoxMax x="128" y="45" z="1"/>
-            <Gap>10</Gap>
-            <Width>5</Width>
-            <Types>SecretingCells</Types>
-        </Region>
-                <Region>
-            <BoxMin x="0" y="80" z="0"/>
-            <BoxMax x="40" y="85" z="1"/>
-            <Gap>10</Gap>
-            <Width>5</Width>
-            <Types>SecretingCells</Types>
-        </Region>
+        <!-- <Region> -->
+            <!-- <BoxMin x="0" y="0" z="0"/> -->
+            <!-- <BoxMax x="128" y="128" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>1</Width> -->
+            <!-- <Types>SecretingCells,NonSecretingCells</Types> -->
+        <!-- </Region> -->
+        <!-- <Region> -->
+            <!-- <BoxMin x="0" y="60" z="0"/> -->
+            <!-- <BoxMax x="40" y="65" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>SecretingCells</Types> -->
+        <!-- </Region> -->
+        <!-- <Region> -->
+            <!-- <BoxMin x="70" y="60" z="0"/> -->
+            <!-- <BoxMax x="128" y="65" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>SecretingCells</Types> -->
+        <!-- </Region> -->
+                <!-- <Region> -->
+            <!-- <BoxMin x="0" y="40" z="0"/> -->
+            <!-- <BoxMax x="40" y="45" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>SecretingCells</Types> -->
+        <!-- </Region> -->
+        <!-- <Region> -->
+            <!-- <BoxMin x="70" y="40" z="0"/> -->
+            <!-- <BoxMax x="128" y="45" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>SecretingCells</Types> -->
+        <!-- </Region> -->
+                <!-- <Region> -->
+            <!-- <BoxMin x="0" y="80" z="0"/> -->
+            <!-- <BoxMax x="40" y="85" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>SecretingCells</Types> -->
+        <!-- </Region> -->
         <Region>
             <BoxMin x="70" y="80" z="0"/>
             <BoxMax x="128" y="85" z="1"/>
