@@ -1,7 +1,10 @@
+
 from cc3d import CompuCellSetup
+        
 
-from FitzHughNagumoSteppables import FitzHughNagumoSteppable
+from FitzHughNagumoSteppables import Projectv1Steppable
 
-CompuCellSetup.register_steppable(steppable=FitzHughNagumoSteppable(frequency=1))
+CompuCellSetup.register_steppable(steppable=Projectv1Steppable(frequency=1))
+
 
 CompuCellSetup.run()

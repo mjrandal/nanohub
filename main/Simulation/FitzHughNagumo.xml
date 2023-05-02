@@ -8,6 +8,7 @@
         <NeighborOrder>1</NeighborOrder>
     </Potts>
 
+
     <!-- Listing all cell types in the simulation -->
     <Plugin Name="CellType">
         <CellType TypeId="0" TypeName="Medium"/>
@@ -84,6 +85,153 @@
    <Energy Type1="Xanthophores2" Type2="Xanthophores2">25.0</Energy>
    <NeighborOrder>2</NeighborOrder>
 </Plugin>
+<Plugin Name="Secretion">
+
+</Plugin>
+<Steppable Type="DiffusionSolverFE">
+   
+   <!-- Specification of PDE solvers -->
+   <DiffusionField Name="Melanophore">
+      <DiffusionData>
+         <FieldName>Melanophore</FieldName>
+         <GlobalDiffusionConstant>1.0</GlobalDiffusionConstant>
+         <GlobalDecayConstant>0.000625</GlobalDecayConstant>
+         <!-- Additional options are: -->
+         <!-- <InitialConcentrationExpression>x*y</InitialConcentrationExpression> -->
+         <!-- <ConcentrationFileName>INITIAL CONCENTRATION FIELD - typically a file with path Simulation/NAME_OF_THE_FILE.txt</ConcentrationFileName> -->
+         
+      </DiffusionData>
+      <SecretionData>
+         <!-- When secretion is defined inside DissufionSolverFE all secretion constants are scaled automaticaly to account for the extra calls to the diffusion step when handling large diffusion constants -->
+         
+         <!-- Uniform secretion Definition -->
+
+         <Secretion Type="Melanophores">0.00625</Secretion>
+         <Secretion Type="Melanophores2">0.00625</Secretion>
+ 
+         <!-- <SecretionOnContact SecreteOnContactWith="SecretingCells,NonSecretingCells,Melanophores,Xanthophores,wall,Melanophores2,Xanthophores2" Type="Xanthophores2">0.2</SecretionOnContact> -->
+         <!-- <ConstantConcentration Type="Xanthophores2">0.1</ConstantConcentration> -->
+      </SecretionData>
+      <BoundaryConditions>
+         <Plane Axis="X">
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantValue PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+         <Plane Axis="Y">
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantDerivative PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+      </BoundaryConditions>
+   </DiffusionField>
+   <DiffusionField Name="Xanthophore">
+      <DiffusionData>
+         <FieldName>Xanthophore</FieldName>
+         <GlobalDiffusionConstant>1.0</GlobalDiffusionConstant>
+         <GlobalDecayConstant>0.000625</GlobalDecayConstant>
+         
+      </DiffusionData>
+      <SecretionData>
+         <!-- When secretion is defined inside DissufionSolverFE all secretion constants are scaled automaticaly to account for the extra calls to the diffusion step when handling large diffusion constants -->
+         
+         <!-- Uniform secretion Definition -->     
+         <Secretion Type="Xanthophores">0.00625</Secretion>
+  
+         <Secretion Type="Xanthophores2">0.00625</Secretion>
+         <!-- <SecretionOnContact SecreteOnContactWith="SecretingCells,NonSecretingCells,Melanophores,Xanthophores,wall,Melanophores2,Xanthophores2" Type="Xanthophores2">0.2</SecretionOnContact> -->
+         <!-- <ConstantConcentration Type="Xanthophores2">0.1</ConstantConcentration> -->
+      </SecretionData>
+      <BoundaryConditions>
+         <Plane Axis="X">
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantValue PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+         <Plane Axis="Y">
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantDerivative PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+      </BoundaryConditions>
+   </DiffusionField>
+   <DiffusionField Name="Melanophores2">
+      <DiffusionData>
+         <FieldName>Melanophores2</FieldName>
+         <GlobalDiffusionConstant>0.3</GlobalDiffusionConstant>
+         <GlobalDecayConstant>0.000625</GlobalDecayConstant>
+         
+      </DiffusionData>
+      <SecretionData>
+         <!-- When secretion is defined inside DissufionSolverFE all secretion constants are scaled automaticaly to account for the extra calls to the diffusion step when handling large diffusion constants -->
+         
+         <!-- Uniform secretion Definition -->     
+         <Secretion Type="Melanophores">0.00625</Secretion>
+  
+         <Secretion Type="Melanophores2">0.00625</Secretion>
+         <!-- <SecretionOnContact SecreteOnContactWith="SecretingCells,NonSecretingCells,Melanophores,Xanthophores,wall,Melanophores2,Xanthophores2" Type="Xanthophores2">0.2</SecretionOnContact> -->
+         <!-- <ConstantConcentration Type="Xanthophores2">0.1</ConstantConcentration> -->
+      </SecretionData>
+      <BoundaryConditions>
+         <Plane Axis="X">
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantValue PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+         <Plane Axis="Y">
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantDerivative PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+      </BoundaryConditions>
+   </DiffusionField>
+   <DiffusionField Name="Xanthophores2">
+      <DiffusionData>
+         <FieldName>Xanthophores2</FieldName>
+         <GlobalDiffusionConstant>0.3</GlobalDiffusionConstant>
+         <GlobalDecayConstant>0.000625</GlobalDecayConstant>
+         
+      </DiffusionData>
+      <SecretionData>
+         <!-- When secretion is defined inside DissufionSolverFE all secretion constants are scaled automaticaly to account for the extra calls to the diffusion step when handling large diffusion constants -->
+         
+         <!-- Uniform secretion Definition -->     
+         <Secretion Type="Xanthophores">0.00625</Secretion>
+  
+         <Secretion Type="Xanthophores2">0.00625</Secretion>
+         <!-- <SecretionOnContact SecreteOnContactWith="SecretingCells,NonSecretingCells,Melanophores,Xanthophores,wall,Melanophores2,Xanthophores2" Type="Xanthophores2">0.2</SecretionOnContact> -->
+         <!-- <ConstantConcentration Type="Xanthophores2">0.1</ConstantConcentration> -->
+      </SecretionData>
+      <BoundaryConditions>
+         <Plane Axis="X">
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantValue PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+         <Plane Axis="Y">
+            <!-- <ConstantDerivative PlanePosition="Min" Value="10.0"/> -->
+            <!-- <ConstantDerivative PlanePosition="Max" Value="5.0"/> -->
+            <!-- Other options are (examples): -->
+            <Periodic/>
+            <!-- <ConstantValue PlanePosition="Min" Value="10.0"/> -->
+         </Plane>
+      </BoundaryConditions>
+   </DiffusionField>
+</Steppable>
 
 
     <!-- Specification of PDE solvers -->
@@ -91,18 +239,20 @@
         <DiffusionField>
             <DiffusionData>
                 <FieldName>u</FieldName>
-                <DiffusionConstant>0.02</DiffusionConstant>
+                <!-- 0.02 -->
+                <DiffusionConstant>0.32</DiffusionConstant>
                 <GlobalDecayConstant>0.02</GlobalDecayConstant>
                 <AdditionalTerm>min(0.5,max(0,-0.04*v-0.055*w+0.37))</AdditionalTerm>
             </DiffusionData>
             <SecretionData>
+                <!-- 0.4 -->
                 <Secretion Type="SecretingCells">0.4</Secretion>
             </SecretionData>
         </DiffusionField>
         <DiffusionField>
             <DiffusionData>
                 <FieldName>v</FieldName>
-                <DiffusionConstant>0.02</DiffusionConstant>
+                <DiffusionConstant>0.32</DiffusionConstant>
                 <GlobalDecayConstant>0.025</GlobalDecayConstant>
                 <AdditionalTerm>min(0.5,max(0,-0.05*u+0.0*w+0.25))</AdditionalTerm>
             </DiffusionData>
@@ -113,7 +263,7 @@
         <DiffusionField>
             <DiffusionData>
                 <FieldName>w</FieldName>
-                <DiffusionConstant>0.2</DiffusionConstant>
+                <DiffusionConstant>3.2</DiffusionConstant>
                 <GlobalDecayConstant>0.06</GlobalDecayConstant>
                 <AdditionalTerm>min(0.5,max(0,0.016*u-0.03*v+0.24))</AdditionalTerm>
             </DiffusionData>
@@ -127,11 +277,11 @@
    
    <!-- You may repeat ChemicalField element for each chemical field declared in the PDE solvers -->
    <!-- Specification of chemotaxis properties of select cell types. -->
-   <ChemicalField Name="u">
+   <ChemicalField Name="Melanophores2">
       <ChemotaxisByType  Lambda="10.0" Type="Melanophores2"/>
 
    </ChemicalField>
-      <ChemicalField Name="v">
+      <ChemicalField Name="Xanthophores2">
       <ChemotaxisByType  Lambda="10.0" Type="Xanthophores2"/>
 
    </ChemicalField>
@@ -145,26 +295,26 @@
             <!-- <Width>1</Width> -->
             <!-- <Types>SecretingCells,NonSecretingCells</Types> -->
         <!-- </Region> -->
+        <Region>
+            <BoxMin x="0" y="63" z="0"/>
+            <BoxMax x="128" y="64" z="1"/>
+            <Gap>3</Gap>
+            <Width>5</Width>
+            <Types>Melanophores</Types>
+        </Region>
         <!-- <Region> -->
-            <!-- <BoxMin x="0" y="60" z="0"/> -->
-            <!-- <BoxMax x="128" y="65" z="1"/> -->
-            <!-- <Gap>0</Gap> -->
-            <!-- <Width>1</Width> -->
-            <!-- <Types>SecretingCells</Types> -->
-        <!-- </Region> -->
-        <!-- <Region> -->
-            <!-- <BoxMin x="0" y="60" z="0"/> -->
-            <!-- <BoxMax x="128" y="65" z="1"/> -->
-            <!-- <Gap>10</Gap> -->
+            <!-- <BoxMin x="0" y="50" z="0"/> -->
+            <!-- <BoxMax x="128" y="51" z="1"/> -->
+            <!-- <Gap>3</Gap> -->
             <!-- <Width>5</Width> -->
-            <!-- <Types>SecretingCells</Types> -->
+            <!-- <Types>Melanophores</Types> -->
         <!-- </Region> -->
         <!-- <Region> -->
-            <!-- <BoxMin x="0" y="0" z="0"/> -->
-            <!-- <BoxMax x="128" y="128" z="1"/> -->
-            <!-- <Gap>10</Gap> -->
-            <!-- <Width>1</Width> -->
-            <!-- <Types>SecretingCells,NonSecretingCells</Types> -->
+            <!-- <BoxMin x="0" y="75" z="0"/> -->
+            <!-- <BoxMax x="128" y="76" z="1"/> -->
+            <!-- <Gap>3</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>Melanophores</Types> -->
         <!-- </Region> -->
         <!-- <Region> -->
             <!-- <BoxMin x="0" y="60" z="0"/> -->
@@ -201,13 +351,13 @@
             <!-- <Width>5</Width> -->
             <!-- <Types>SecretingCells</Types> -->
         <!-- </Region> -->
-        <Region>
-            <BoxMin x="70" y="80" z="0"/>
-            <BoxMax x="128" y="85" z="1"/>
-            <Gap>10</Gap>
-            <Width>5</Width>
-            <Types>SecretingCells</Types>
-        </Region>
+        <!-- <Region> -->
+            <!-- <BoxMin x="70" y="80" z="0"/> -->
+            <!-- <BoxMax x="128" y="85" z="1"/> -->
+            <!-- <Gap>10</Gap> -->
+            <!-- <Width>5</Width> -->
+            <!-- <Types>SecretingCells</Types> -->
+        <!-- </Region> -->
         
     </Steppable>
 </CompuCell3D>
